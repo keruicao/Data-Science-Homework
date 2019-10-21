@@ -1,0 +1,6 @@
+"0","# the value of V4 equaling to 1 and 2 represents family is important"
+"0","cross = xtabs(data = da,~V4+V10)"
+"0","crossdf = data.frame(cross)"
+"0","cross1 =crossdf %>% pivot_wider(names_from = V4, values_from = Freq)"
+"0","colnames(cross1) = c(""V10"",paste(""V4="",c(1,2,3,4),sep = """"))"
+"0","kable(cross1,caption = ""Cross Analysis (Freqency)"", align = ""c"",booktabs = T,format = ""latex"") %>% kable_styling(latex_options = ""HOLD_position"")"

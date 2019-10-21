@@ -1,0 +1,26 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1571621557673.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "3217452151",
+    "id" : "84E7B443",
+    "lastKnownWriteTime" : 1571604899,
+    "last_content_update" : 1571624882356,
+    "path" : "D:/R-connect-Server/DataScience in R/Project/data preperation and EDA/EDA_Report.Rmd",
+    "project_path" : null,
+    "properties" : {
+        "cursorPosition" : "106,138",
+        "last_setup_crc32" : "40BEDE69fa7b5ef0",
+        "scrollLine" : "94"
+    },
+    "read_only" : false,
+    "read_only_alternatives" : [
+    ],
+    "relative_order" : 5,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_markdown"
+}

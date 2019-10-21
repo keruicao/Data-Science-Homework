@@ -1,0 +1,25 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1571619459905.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "2996807998",
+    "id" : "5F5AB944",
+    "lastKnownWriteTime" : 1571426257,
+    "last_content_update" : 1571426257,
+    "path" : "D:/R-connect-Server/DataScience in R/Project/Project Shiny/Project_data_clean.R",
+    "project_path" : "Project_data_clean.R",
+    "properties" : {
+        "cursorPosition" : "17,33",
+        "scrollLine" : "32"
+    },
+    "read_only" : false,
+    "read_only_alternatives" : [
+    ],
+    "relative_order" : 3,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}

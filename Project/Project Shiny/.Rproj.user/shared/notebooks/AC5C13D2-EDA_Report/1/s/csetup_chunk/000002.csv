@@ -1,0 +1,2 @@
+"0","knitr::opts_chunk$set(dev=""pdf"",fig.align  = 'center',warning = F, message = F,dpi = 500,tidy = T)"
+"0","pacman::p_load(""magrittr"",""knitr"",""tidyverse"",""kableExtra"",""psych"",""cluster"")"

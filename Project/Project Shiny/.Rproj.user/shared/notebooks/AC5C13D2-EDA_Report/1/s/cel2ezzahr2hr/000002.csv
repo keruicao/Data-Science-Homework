@@ -1,0 +1,3 @@
+"0",""
+"0","prop.cross = data.frame(prop.table(cross,margin = 1))"
+"0","ggplot(prop.cross,aes(y = Freq, x = V4, fill=V10)) + geom_col(position = ""dodge"") + ylab(""Proportion"") + scale_x_discrete(""V4"",labels=c(""1""=""very important"",""2""=""rather important"", ""3""=""not very important"",""4""=""not at all important"")) + scale_fill_discrete(""V10"",labels=c(""1""=""very happy"", ""2""=""rather happy"", ""3""=""not very happy"", ""4""=""not at all happy"")) + theme(legend.position = ""top"")"
