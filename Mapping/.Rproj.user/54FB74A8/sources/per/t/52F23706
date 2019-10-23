@@ -1,0 +1,25 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1571773047448.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "222186814",
+    "id" : "52F23706",
+    "lastKnownWriteTime" : 1571781049,
+    "last_content_update" : 1571781049730,
+    "path" : "D:/R-connect-Server/DataScience in R/Mapping/map.R",
+    "project_path" : "map.R",
+    "properties" : {
+        "cursorPosition" : "180,14",
+        "scrollLine" : "0"
+    },
+    "read_only" : false,
+    "read_only_alternatives" : [
+    ],
+    "relative_order" : 1,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}
