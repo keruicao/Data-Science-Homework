@@ -14,7 +14,7 @@ library(htmlwidgets) # To save the map as a web page.
 # write.csv(data,"data.csv")
 data = read.csv("tmphbl23vi6.csv") %>% select(INCIDENT_NUMBER,OFFENSE_CODE,YEAR,MONTH,Lat,Long)
 code <- read_excel("rmsoffensecodes.xlsx")
-police = read.csv("Boston_Police_Stations.csv") %>% rename("Long"="Ã¯..X","Lat" = "Y") %>% select(Long,Lat,NAME)
+police = read.csv("Boston_Police_Stations.csv") %>% rename("Long"="ï..X","Lat" = "Y") %>% select(Long,Lat,NAME)
 
 data = left_join(x = data,y = code,by = c("OFFENSE_CODE"="CODE"))
 data = na.omit(data)
@@ -129,33 +129,37 @@ data = na.omit(data)
 ############################################################################################################################################
 library(shiny)
 
-ui <- fluidPage(
+ui = fluidPage(
+  title = "Crime and Police Station Distribution",
+  verbatimTextOutput("Text"),
+  tabsetPanel(
+    tabPanel("Map",leafletOutput(outputId = "Plot",width = 1600, height = 800)),
+    tabPanel("Data",tableOutput("table"))
+  ),
   
-  # Application title
-  titlePanel("World Urban Population Percentage"),
   
-  # Sidebar with a slider input for number of bins 
-  sidebarLayout(
-    sidebarPanel(
-      # selectInput("year1", "Select a base year", 
-      #             choices = c( 1990=`1990`, "1991"=`1991`, "1992"=`1992`)),
-      # selectInput("year2", "Select a year to compare", 
-      #             choices = c( "1990"=`1990`, "1991"=`1991`, "1992"=`1992`))
-      
-      selectInput("cod", "Select an Offense Code", unique(data$OFFENSE_CODE) ),
-      selectInput("ye", "Select Year", unique(data$YEAR) ),
-      selectInput("mo", "Select Month", unique(data$MONTH) ),
-      numericInput("nu", "Select how many crimes to show",value = 30)
-    ),
-    
-    mainPanel(
-      leafletOutput(outputId = "Plot",width = 1200, height = 800)
-    )
+  hr(),
+  
+  fluidRow(
+    column(3,
+           h4("Select how many crimes to show"),
+           sliderInput("nu","Number of Crimes to Show",min = 1,max = 100,value = 30,
+                       step = 1)),
+    column(4,offset = 1,
+           selectInput("cod", "Select an Offense Code", unique(data$OFFENSE_CODE) ),
+           selectInput("ye", "Select Year", unique(data$YEAR) )
+           ),
+    column(4,
+           selectInput("mo", "Select Month", unique(data$MONTH) ))
   )
 )
 
 
 server <- function(input, output, session) {
+  
+  output$Text = renderPrint({
+    "Blue marks represents Crime, Red marks represents Police Stations"
+  })
   
   output$Plot = renderLeaflet({
     
@@ -184,7 +188,7 @@ server <- function(input, output, session) {
     # Create the Leaflet map widget and add some map layers.
     # We use the pipe operator %>% to streamline the adding of
     leaflet(data = sites) %>%
-      setView(-71.098849, 42.350434, zoom = 12) %>% 
+      setView(mean(sites$Long), mean(sites$Lat), zoom = 12) %>% 
     # layers to the leaflet object. The pipe operator comes from 
     # the magrittr package via the dplyr package.
       addProviderTiles(providers$CartoDB.Positron, group = "Map") %>%
@@ -201,6 +205,12 @@ server <- function(input, output, session) {
         overlayGroups = c("OFFENSE", "States","Police Station"),
         options = layersControlOptions(collapsed = T)
       )
+  })
+  
+  output$table = renderTable({
+    sub_da = data %>% filter(OFFENSE_CODE == input$cod & YEAR == input$ye & MONTH == input$mo)
+    sites = head(sub_da,input$nu)
+    sites
   })
 
 }
