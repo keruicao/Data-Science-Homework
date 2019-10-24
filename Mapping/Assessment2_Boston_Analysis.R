@@ -14,7 +14,7 @@ library(htmlwidgets) # To save the map as a web page.
 # write.csv(data,"data.csv")
 data = read.csv("tmphbl23vi6.csv") %>% select(INCIDENT_NUMBER,OFFENSE_CODE,YEAR,MONTH,Lat,Long)
 code <- read_excel("rmsoffensecodes.xlsx")
-police = read.csv("Boston_Police_Stations.csv") %>% rename("Long"="ï..X","Lat" = "Y") %>% select(Long,Lat,NAME)
+police = read.csv("Boston_Police_Station.csv") %>% rename("Long"="LONG","Lat" = "LAT") %>% select(Long,Lat,NAME)
 
 data = left_join(x = data,y = code,by = c("OFFENSE_CODE"="CODE"))
 data = na.omit(data)
