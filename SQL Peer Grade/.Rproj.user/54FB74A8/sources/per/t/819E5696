@@ -1,0 +1,33 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1572384029624.000,
+    "dirty" : false,
+    "encoding" : "",
+    "folds" : "",
+    "hash" : "0",
+    "id" : "819E5696",
+    "lastKnownWriteTime" : 2459013921659036276,
+    "last_content_update" : 1572384029624,
+    "path" : null,
+    "project_path" : null,
+    "properties" : {
+        "cacheKey" : "167EE79F",
+        "caption" : "Organization",
+        "contentUrl" : "grid_resource/gridviewer.html?env=&obj=Organization&cache_key=167EE79F",
+        "displayedObservations" : "14",
+        "environment" : "",
+        "expression" : "Organization",
+        "object" : "Organization",
+        "preview" : "0",
+        "totalObservations" : "14",
+        "variables" : "2"
+    },
+    "read_only" : false,
+    "read_only_alternatives" : [
+    ],
+    "relative_order" : 4,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_dataframe"
+}

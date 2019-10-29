@@ -1,0 +1,28 @@
+library(readxl)
+library(tidyverse)
+library(RSQLite)
+library(DBI)
+
+DB1 <- read_excel("Top MA Donors 2016-2020(2).xlsx")
+Con_All = read_excel("Top MA Donors 2016-2020(2).xlsx",sheet = "Direct Contributions & JFC Dist")
+JFC = read_excel("Top MA Donors 2016-2020(2).xlsx",sheet = "JFC Contributions (DO NOT SUM W")
+
+contributors = Con_All %>% select(contribid,fam,contrib,City,State,Zip,Fecoccemp,orgname) %>% distinct()
+
+orgs = Con_All %>% select(orgname,ultorg)%>% distinct()
+
+contribution = Con_All %>% select(contribid,date,amount,recipient)%>% distinct()
+
+recipient = Con_All %>% select(recipient,party,recipcode,cmteid)%>% distinct()
+
+unique(Con_All$State)
+
+con = dbConnect(SQLite(),"my_DB.sqlite")
+
+
+dbGetQuery(con,"select FirstName, LastName
+           From Customers where Country = 'Brazil';")
+
+original = left_join(contributors,orgs, by="orgname")
+original = left_join(original,contribution,by = "contribid")
+original = left_join(original,recipient,by = "")

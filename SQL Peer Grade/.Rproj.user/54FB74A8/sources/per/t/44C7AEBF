@@ -1,0 +1,26 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1572374487099.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "3431240652",
+    "id" : "44C7AEBF",
+    "lastKnownWriteTime" : 1572384353,
+    "last_content_update" : 1572384353977,
+    "path" : "D:/R-connect-Server/DataScience in R/SQL Peer Grade/SQL Peer Grade.R",
+    "project_path" : "SQL Peer Grade.R",
+    "properties" : {
+        "cursorPosition" : "24,0",
+        "scrollLine" : "0",
+        "tempName" : "Untitled1"
+    },
+    "read_only" : false,
+    "read_only_alternatives" : [
+    ],
+    "relative_order" : 2,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}
