@@ -7,9 +7,16 @@ DB1 <- read_excel("Top MA Donors 2016-2020(2).xlsx")
 Con_All = read_excel("Top MA Donors 2016-2020(2).xlsx",sheet = "Direct Contributions & JFC Dist")
 JFC = read_excel("Top MA Donors 2016-2020(2).xlsx",sheet = "JFC Contributions (DO NOT SUM W")
 
+mini = function(x){
+  len = x %>%unique%>% sapply(nchar)
+  opt = unique(x)
+  mod = head(opt[which(len==min(len))],1)
+  return(mod)
+}
 
-Con_All['contrib'] = gsub(Con_All$contrib,pattern = ", ",replacement = ",")
-Con_All['contrib'] = gsub(Con_All$contrib,pattern = "\\s\\w*",replacement = "")
+contrib = Con_All %>% group_by(contribid,fam)%>% summarise(contrib = mini(contrib))
+Con_All = Con_All %>% select(-"contrib")
+Con_All = left_join(Con_All,contrib,by = c("contribid","fam"))
 
 
 Contribution = Con_All %>% select(cycle,contribid,fam,date,amount,recipid,type,fectransid,cmteid) %>% distinct()
