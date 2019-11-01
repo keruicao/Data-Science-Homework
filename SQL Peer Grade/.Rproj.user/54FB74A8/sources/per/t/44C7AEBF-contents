@@ -7,6 +7,8 @@ DB1 <- read_excel("Top MA Donors 2016-2020(2).xlsx")
 Con_All = read_excel("Top MA Donors 2016-2020(2).xlsx",sheet = "Direct Contributions & JFC Dist")
 JFC = read_excel("Top MA Donors 2016-2020(2).xlsx",sheet = "JFC Contributions (DO NOT SUM W")
 
+Con_All = Con_All %>% mutate(lastname = toupper(lastname))
+
 mini = function(x){
   len = x %>%unique%>% sapply(nchar)
   opt = unique(x)
@@ -18,11 +20,47 @@ contrib = Con_All %>% group_by(contribid,fam)%>% summarise(contrib = mini(contri
 Con_All = Con_All %>% select(-"contrib")
 Con_All = left_join(Con_All,contrib,by = c("contribid","fam"))
 
+library(tidyverse)
+library(magrittr)
+library(RecordLinkage)
+test = Con_All %>% select(Fecoccemp,fectransid) 
+colnames(test) = c("name","id")
+test %<>% mutate(like = levenshteinDist(test$name[1],name)) %>% arrange(name)
+
+test$name = gsub(x = test$name, pattern = "\\W",replacement = " ")
+
+repeat{
+  sub = 0
+  for(i in 1:(length(test$name)-1)){
+    up = nchar(test$name[i])
+    down = nchar(test$name[i+1])
+    if(test$name[i]!=test$name[i+1] & levenshteinDist(test$name[i],test$name[i+1]) <=3){
+      if(up >down){
+        test$name[i]=test$name[i+1]
+        sub = sub+1
+      }
+      if(up <=down){
+        test$name[i+1]=test$name[i]
+        sub = sub+1
+      }
+    }
+  }
+  s = sample(x = seq(1,length(test$name),10),size = 1)
+  test %<>% mutate(like = levenshteinDist(test$name[s],name)) %>% arrange(name)
+  if(sub == 0){
+    break
+  }
+}
+
+test = test %>% select(-"like")
+colnames(test) = c("Fecoccemp","fectransid")
+Con_All = Con_All %>% select(-"Fecoccemp")
+Con_All = left_join(Con_All,test,by = 'fectransid')
 
 Contribution = Con_All %>% select(cycle,contribid,fam,date,amount,recipid,type,fectransid,cmteid) %>% distinct()
-Contributor = Con_All %>% select(contribid,fam,contrib,City,State,Zip,Fecoccemp,orgname,lastname) %>% distinct()
+Contributor = Con_All %>% select(contribid,fam,contrib,City,State,Zip,Fecoccemp,lastname) %>% distinct()
 Recipient = Con_All %>% select(recipid,recipient,party,recipcode) %>% distinct()
-Organization = Con_All %>% select(orgname,ultorg) %>% distinct() %>% na.omit()
+Organization = Con_All %>% select(Fecoccemp,ultorg) %>% distinct() %>% na.omit()
 
 Contrib = dbConnect(SQLite(),"Kerui_Cao.sqlite")
 dbWriteTable(Contrib,"Contribution",Contribution)
